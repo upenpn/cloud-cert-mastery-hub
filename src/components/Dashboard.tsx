@@ -14,7 +14,8 @@ import {
   Filter,
   Star,
   CheckCircle2,
-  XCircle
+  XCircle,
+  Settings
 } from "lucide-react";
 
 interface DashboardProps {
@@ -22,9 +23,10 @@ interface DashboardProps {
   onStartPractice: () => void;
   onStartExam: () => void;
   onViewAnalytics: () => void;
+  onOpenCMS: () => void;
 }
 
-export default function Dashboard({ user, onStartPractice, onStartExam, onViewAnalytics }: DashboardProps) {
+export default function Dashboard({ user, onStartPractice, onStartExam, onViewAnalytics, onOpenCMS }: DashboardProps) {
   const [selectedCertification] = useState("AWS Solutions Architect - Associate");
   
   // Mock data - would come from backend
@@ -52,8 +54,16 @@ export default function Dashboard({ user, onStartPractice, onStartExam, onViewAn
     <div className="space-y-8 animate-fade-in">
       {/* Welcome Section */}
       <div className="bg-gradient-primary rounded-lg p-6 text-primary-foreground">
-        <h1 className="text-2xl font-bold mb-2">Welcome back, {user.name || user.email}!</h1>
-        <p className="opacity-90">Ready to advance your AWS certification journey?</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold mb-2">Welcome back, {user.name || user.email}!</h1>
+            <p className="opacity-90">Ready to advance your AWS certification journey?</p>
+          </div>
+          <Button variant="secondary" onClick={onOpenCMS} className="bg-white/20 hover:bg-white/30 text-white border-white/30">
+            <Settings className="w-4 h-4 mr-2" />
+            Manage Questions
+          </Button>
+        </div>
       </div>
 
       {/* Quick Actions */}

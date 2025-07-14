@@ -5,10 +5,11 @@ import Dashboard from "@/components/Dashboard";
 import QuizInterface from "@/components/QuizInterface";
 import ResultsScreen from "@/components/ResultsScreen";
 import QuestionReview from "@/components/QuestionReview";
+import AdminCMS from "@/pages/AdminCMS";
 import { useToast } from "@/hooks/use-toast";
 import heroImage from "@/assets/hero-image.jpg";
 
-type AppState = 'auth' | 'dashboard' | 'practice' | 'exam' | 'results' | 'review';
+type AppState = 'auth' | 'dashboard' | 'practice' | 'exam' | 'results' | 'review' | 'cms';
 
 const Index = () => {
   const [appState, setAppState] = useState<AppState>('auth');
@@ -86,6 +87,10 @@ const Index = () => {
     });
   };
 
+  const handleOpenCMS = () => {
+    setAppState('cms');
+  };
+
   // Auth screen with hero section
   if (appState === 'auth') {
     return (
@@ -153,7 +158,12 @@ const Index = () => {
           onStartPractice={handleStartPractice}
           onStartExam={handleStartExam}
           onViewAnalytics={handleViewAnalytics}
+          onOpenCMS={handleOpenCMS}
         />
+      )}
+
+      {appState === 'cms' && (
+        <AdminCMS onBack={handleBackToDashboard} />
       )}
       
       {(appState === 'practice' || appState === 'exam') && (
